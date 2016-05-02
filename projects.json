@@ -1,0 +1,19 @@
+[
+  {
+    "id": "ifa",
+    "name": "Armour Station",
+    "category": "infill_stations",
+    "description": "New station on Red/Gold lines between Arts Center and Lindbergh. Enhances connectivity between MARTA, Beltline/Clifton transit, and commuter/intercity rail.",
+    "cost": {
+      "capital": 79000000,
+      "operating": 0
+    },
+    "geojson": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-84.3755, 33.813]
+      }
+    }
+  }
+]
