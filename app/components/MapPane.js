@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import { Panel } from 'react-bootstrap'
-import { Map, Marker, Popup, TileLayer, CircleMarker } from 'react-leaflet';
+import { Map, Marker, Popup, TileLayer, CircleMarker, Polyline } from 'react-leaflet';
 
 import ProjectListing from './ProjectListing'
 
@@ -21,7 +21,7 @@ export default class MapPane extends Component {
       </Popup>
     )
 
-    const color = project.selected ? 'orange' : 'gray'
+    const color = project.selected ? '#df691a' : 'gray'
     switch(project.geojson.geometry.type) {
       case 'Point':
         return (
@@ -33,6 +33,20 @@ export default class MapPane extends Component {
           >
             {popup}
           </CircleMarker>
+        )
+      case 'LineString':
+        const positions = project.geojson.geometry.coordinates.map(coord => {
+          return [coord[1], coord[0]]
+        })
+        return (
+          <Polyline
+            positions={positions}
+            color={color}
+            weight={8}
+            key={project.id}
+          >
+            {popup}
+          </Polyline>
         )
     }
   }
