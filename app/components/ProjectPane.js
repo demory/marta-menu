@@ -27,17 +27,16 @@ export default class ProjectPane extends Component {
     return (
       <div style={style}>
         <h3>Projects</h3>
+        {ATF_CONFIG.categories.map(category => {
+          return (
+            <ProjectList
+              title={category.title}
+              projects={this.getProjectsForCategory(category.type)}
+              projectToggled={(project) => this.props.projectToggled(project)}
+            />
+          )
+        })}
 
-        <ProjectList
-          title='LRT/Streetcar'
-          projects={this.getProjectsForCategory('lrt_streetcar')}
-        />
-
-        <ProjectList
-          title='Infill Stations'
-          projects={this.getProjectsForCategory('infill_stations')}
-          projectToggled={(project) => this.props.projectToggled(project)}
-        />
 
       </div>
     )
