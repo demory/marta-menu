@@ -53,7 +53,6 @@ export default class BudgetPane extends Component {
 
     const totalCost = this.getTotalCost(), totalBudget = ATF_CONFIG.budget.total
     const budgetUsedPct = 100 * totalCost / totalBudget
-    console.log('% used = '+budgetUsedPct);
 
     return (
       <div style={containerStyle}>
@@ -64,11 +63,18 @@ export default class BudgetPane extends Component {
             </div>
             <div style={rightStyle}>
               {formatCost(this.getTotalCost())}
-              <Label bsStyle='success' style={{ marginLeft: '10px' }} className='pull-right'><Glyphicon glyph='ok' />  Under Budget</Label>
+              {budgetUsedPct <= 100
+                ? <Label bsStyle='success' className='pull-right'>
+                    <Glyphicon glyph='ok' />  Under Budget
+                  </Label>
+                : <Label bsStyle='danger' className='pull-right'>
+                    <Glyphicon glyph='alert' />  Over Budget
+                  </Label>
+              }
             </div>
             <div style={centerStyle}>
               <div style={{
-                width: budgetUsedPct === 0 ? '1px' : `${budgetUsedPct}%`,
+                width: budgetUsedPct === 0 ? '1px' : (budgetUsedPct > 100 ? '100%' : `${budgetUsedPct}%`),
                 height: '14px',
                 background: 'orange'
               }}>&nbsp;</div>
@@ -84,7 +90,11 @@ export default class BudgetPane extends Component {
             {formatCost(totalBudget)}
             </div>
             <div style={centerStyle}>
-              <div style={{ width: '100%', height: '14px', background: 'lightGray' }}>&nbsp;</div>
+              <div style={{
+                width: budgetUsedPct < 100 ? '100%' : 10000/budgetUsedPct + '%',
+                height: '14px',
+                background: 'lightGray' }}
+              >&nbsp;</div>
             </div>
           </div>
 
