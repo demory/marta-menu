@@ -6,7 +6,7 @@ import ProjectPane from '../components/ProjectPane'
 import BudgetPane from '../components/BudgetPane'
 import MapPane from '../components/MapPane'
 
-import { toggleProject } from '../actions/projects'
+import { toggleProject, setProjectPercentage } from '../actions/projects'
 
 class App extends React.Component {
 
@@ -25,6 +25,7 @@ class App extends React.Component {
         <ProjectPane
           projects={this.props.projects}
           projectToggled={(project) => this.props.projectToggled(project)}
+          projectPercentageChanged={(project, pct) => this.props.projectPercentageChanged(project, pct)}
         />
         <BudgetPane projects={this.props.projects} />
         <MapPane
@@ -44,7 +45,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    projectToggled: (project) => { dispatch(toggleProject(project.id)) }
+    projectToggled: (project) => { dispatch(toggleProject(project.id)) },
+    projectPercentageChanged: (project, pct) => { dispatch(setProjectPercentage(project.id, pct))}
   }
 }
 

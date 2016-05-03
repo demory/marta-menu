@@ -11,6 +11,7 @@ export default class MapPane extends Component {
   }
 
   getProjectLayer (project) {
+    if(!project.geojson) return null
     const popup = (
       <Popup>
         <ProjectListing

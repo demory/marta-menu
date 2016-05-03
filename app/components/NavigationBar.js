@@ -11,13 +11,10 @@ export default class NavigationBar extends Component {
   render () {
 
     return (
-      <Navbar inverse>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href='/explore'>{ATF_CONFIG.application.title}</a>
+      <Navbar inverse className='container-fullwidth' fluid>
+          <Navbar.Brand style={{ fontWeight: 'bold', marginLeft: '0px' }}>
+            <i className='fa fa-bus'></i>&nbsp;&nbsp;{ATF_CONFIG.application.title}
           </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
       </Navbar>
     )
   }
