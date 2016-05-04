@@ -20,6 +20,13 @@ export default class ProjectList extends Component {
       </h2>
     )
 
+    const projects = this.props.projects.slice(0)
+    projects.sort((a, b) => {
+      if(a.name < b.name) return -1
+      if(a.name > b.name) return 1
+      return 0
+    })
+
     return (
       <Panel
         header={header}
@@ -36,7 +43,7 @@ export default class ProjectList extends Component {
             </div>
           : null
         }
-        {this.props.projects.map(project => {
+        {projects.map(project => {
           if(project.percentage !== undefined) {
             return (
               <SliderProjectListing
