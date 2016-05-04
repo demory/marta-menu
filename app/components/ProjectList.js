@@ -14,10 +14,16 @@ export default class ProjectList extends Component {
   render () {
 
     const header = (
-      <h2 onClick={() => { this.setState({ expanded: !this.state.expanded }) }}>
-        {this.props.title}
-        <Glyphicon glyph={this.state.expanded ? 'chevron-up' : 'chevron-down' } className='pull-right' />
-      </h2>
+      <div style={{textDecoration: 'none'}}>
+        <div
+          style={{fontSize: '22px'}}
+          onClick={() => { this.setState({ expanded: !this.state.expanded }) }}
+        >
+          <i className={`fa fa-${this.props.icon}`}></i>&nbsp;&nbsp;&nbsp;
+          <b>{this.props.title}</b>
+          <Glyphicon glyph={this.state.expanded ? 'chevron-up' : 'chevron-down' } className='pull-right' />
+        </div>
+      </div>
     )
 
     const projects = this.props.projects.slice(0)
