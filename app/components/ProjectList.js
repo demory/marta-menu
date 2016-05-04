@@ -38,25 +38,17 @@ export default class ProjectList extends Component {
         header={header}
         collapsible
       >
-        {this.props.type === 'local_bus2'
-          ? <div>
-              <SliderProjectListing
-                project={{
-                  name: 'Frequency Improvement',
-                  description: "Across-the-board improvements to MARTA's local bus service in the City of Atlanta. Drag slider to the right to select an overall percentage increase in service."
-                }}
-              />
-            </div>
-          : null
-        }
         {projects.map(project => {
           if(project.percentage !== undefined) {
             return (
-              <SliderProjectListing
-                key={project.id}
-                project={project}
-                projectPercentageChanged={(pct) => this.props.projectPercentageChanged(project, pct)}
-              />
+              <div style={{marginBottom: '10px'}}>
+                <SliderProjectListing
+                  key={project.id}
+                  project={project}
+                  projectPercentageChanged={(pct) => this.props.projectPercentageChanged(project, pct)}
+                />
+                <div style={{clear: 'both'}}>&nbsp;</div>
+              </div>
             )
           }
           return (

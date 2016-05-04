@@ -14,9 +14,9 @@ export function getProjectCost (project) {
     if(modeCosts && modeCosts.local_operating_share) {
       ops = ops * modeCosts.local_operating_share
     }
-    
+
     let cost = cap + ops
-    if(project.percentage) cost = cost * project.percentage/100
+    if(project.percentage !== undefined) cost = cost * project.percentage/100
 
     return cost
   }
