@@ -6,7 +6,7 @@ import ProjectPane from '../components/ProjectPane'
 import BudgetPane from '../components/BudgetPane'
 import MapPane from '../components/MapPane'
 
-import { toggleProject, setProjectPercentage } from '../actions/projects'
+import { toggleProject, setProjectPercentage, setProjectHighlighted } from '../actions/projects'
 
 class App extends React.Component {
 
@@ -18,7 +18,6 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('render app');
     return (
       <div>
         <NavigationBar />
@@ -26,6 +25,8 @@ class App extends React.Component {
           projects={this.props.projects}
           projectToggled={(project) => this.props.projectToggled(project)}
           projectPercentageChanged={(project, pct) => this.props.projectPercentageChanged(project, pct)}
+          projectHovered={(project) => this.props.projectHovered(project)}
+          projectUnhovered={(project) => this.props.projectUnhovered(project)}
         />
         <BudgetPane projects={this.props.projects} />
         <MapPane
@@ -46,7 +47,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     projectToggled: (project) => { dispatch(toggleProject(project.id)) },
-    projectPercentageChanged: (project, pct) => { dispatch(setProjectPercentage(project.id, pct))}
+    projectPercentageChanged: (project, pct) => { dispatch(setProjectPercentage(project.id, pct))},
+    projectHovered: (project) => dispatch(setProjectHighlighted(project.id, true)),
+    projectUnhovered: (project) => dispatch(setProjectHighlighted(project.id, false))
   }
 }
 

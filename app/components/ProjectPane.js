@@ -36,6 +36,8 @@ export default class ProjectPane extends Component {
               projects={this.getProjectsForCategory(category.type)}
               projectToggled={(project) => this.props.projectToggled(project)}
               projectPercentageChanged={(project, pct) => this.props.projectPercentageChanged(project, pct)}
+              projectHovered={(project) => this.props.projectHovered(project)}
+              projectUnhovered={(project) => this.props.projectUnhovered(project)}
             />
           )
         })}

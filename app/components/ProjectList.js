@@ -46,11 +46,17 @@ export default class ProjectList extends Component {
               />
             )
           }
-          return <ProjectListing
-            project={project}
-            key={project.id}
-            projectToggled={() => this.props.projectToggled(project)}
-          />
+          return (
+            <div key={project.id}
+              onMouseEnter={(evt) => { this.props.projectHovered(project) }}
+              onMouseLeave={(evt) => { this.props.projectUnhovered(project) }}
+            >
+              <ProjectListing
+                project={project}
+                projectToggled={() => this.props.projectToggled(project)}
+              />
+            </div>
+          )
         })}
       </Panel>
     )

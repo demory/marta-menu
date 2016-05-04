@@ -12,3 +12,11 @@ export const setProjectPercentage = (projectId, percentage) => {
     percentage
   }
 }
+
+export const setProjectHighlighted = (projectId, highlighted) => {
+  return {
+    type: 'SET_PROJECT_HIGHLIGHTED',
+    projectId,
+    highlighted
+  }
+}

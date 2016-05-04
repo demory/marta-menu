@@ -15,7 +15,8 @@ allProjects.push({
 })
 
 const projects = (state = {
-  all: allProjects
+  all: allProjects,
+  highlighted: null
 }, action) => {
   let projectIndex
   switch(action.type) {
@@ -43,6 +44,12 @@ const projects = (state = {
               }
             }
           }
+        }
+      )
+    case 'SET_PROJECT_HIGHLIGHTED':
+      return update(state,
+        {highlighted:
+          {$set: (action.highlighted ? action.projectId : null) }
         }
       )
   }

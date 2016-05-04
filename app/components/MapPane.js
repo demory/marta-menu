@@ -29,7 +29,8 @@ export default class MapPane extends Component {
           <CircleMarker
             center={[project.geojson.geometry.coordinates[1], project.geojson.geometry.coordinates[0]]}
             color={color}
-            radius={10}
+            radius={project.selected ? 10 : 8}
+            weight={4}
             key={project.id}
           >
             {popup}
@@ -43,13 +44,43 @@ export default class MapPane extends Component {
           <Polyline
             positions={positions}
             color={color}
-            weight={8}
+            weight={project.selected ? 10 : 8}
             key={project.id}
           >
             {popup}
           </Polyline>
         )
     }
+  }
+
+  getHighlightLayer (projectId) {
+    const project = this.props.projects.all.find(p => p.id === projectId)
+    const color = 'yellow'
+    switch(project.geojson.geometry.type) {
+      case 'Point':
+        return (
+          <CircleMarker
+            center={[project.geojson.geometry.coordinates[1], project.geojson.geometry.coordinates[0]]}
+            color={color}
+            radius={16}
+            stroke={false}
+            key={project.id}
+          />
+        )
+      case 'LineString':
+        const positions = project.geojson.geometry.coordinates.map(coord => {
+          return [coord[1], coord[0]]
+        })
+        return (
+          <Polyline
+            positions={positions}
+            color={color}
+            weight={project.selected ? 16 : 14}
+            key={project.id}
+          />
+        )
+    }
+
   }
 
   render () {
@@ -70,6 +101,7 @@ export default class MapPane extends Component {
           url={`https://api.mapbox.com/styles/v1/${ATF_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${ATF_CONFIG.map.mapbox.access_token}`}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
+        {this.props.projects.highlighted ? this.getHighlightLayer(this.props.projects.highlighted) : null}
         {this.props.projects.all.map(project => this.getProjectLayer(project))}
       </Map>
     )
