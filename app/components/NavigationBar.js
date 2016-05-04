@@ -12,9 +12,12 @@ export default class NavigationBar extends Component {
 
     return (
       <Navbar inverse className='container-fullwidth' fluid>
-          <Navbar.Brand style={{ fontWeight: 'bold', marginLeft: '0px' }}>
-            <i className='fa fa-bus'></i>&nbsp;&nbsp;{ATF_CONFIG.application.title}
+          <Navbar.Brand style={{ fontWeight: 'bold', marginLeft: '0px', marginTop: '-1px', fontSize: '22px' }}>
+            {ATF_CONFIG.application.title}
           </Navbar.Brand>
+          <div className='pull-right'>
+            <img src={ATF_CONFIG.application.logo} style={{ height: '24px', marginTop: '8px' }}/>
+          </div>
       </Navbar>
     )
   }
