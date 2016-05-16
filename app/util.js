@@ -2,10 +2,10 @@ import haversine from 'haversine'
 
 export function getProjectCost (project) {
   let cap, ops
-  const modeCosts = ATF_CONFIG.budget[project.category]
+  const modeCosts = MM_CONFIG.budget[project.category]
   if(project.cost && (project.cost.capital || project.cost.operating)) {
     cap = project.cost.capital
-    ops = project.cost.operating * ATF_CONFIG.budget.years
+    ops = project.cost.operating * MM_CONFIG.budget.years
 
     if(modeCosts && modeCosts.local_capital_share) {
       cap = cap * modeCosts.local_capital_share
@@ -26,7 +26,7 @@ export function getProjectCost (project) {
     case 'rapid_bus':
       const dist = getProjectLength(project.geojson.geometry.coordinates)
       cap = dist * modeCosts.capital_cost_per_mile * modeCosts.local_capital_share
-      ops = dist * modeCosts.operating_cost_per_mile * ATF_CONFIG.budget.years * modeCosts.local_operating_share
+      ops = dist * modeCosts.operating_cost_per_mile * MM_CONFIG.budget.years * modeCosts.local_operating_share
       return cap + ops
   }
 

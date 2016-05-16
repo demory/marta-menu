@@ -51,7 +51,7 @@ export default class BudgetPane extends Component {
       paddingTop: '4px'
     }
 
-    const totalCost = this.getTotalCost(), totalBudget = ATF_CONFIG.budget.total
+    const totalCost = this.getTotalCost(), totalBudget = MM_CONFIG.budget.total
     const budgetUsedPct = 100 * totalCost / totalBudget
 
     return (

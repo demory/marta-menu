@@ -27,7 +27,7 @@ export default class ProjectPane extends Component {
     return (
       <div style={style}>
         <h3>Projects</h3>
-        {ATF_CONFIG.categories.map(category => {
+        {MM_CONFIG.categories.map(category => {
           return (
             <ProjectList
               key={category.type}

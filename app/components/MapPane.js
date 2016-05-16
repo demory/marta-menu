@@ -84,7 +84,7 @@ export default class MapPane extends Component {
   }
 
   render () {
-    const position = [ATF_CONFIG.map.start_location.lat, ATF_CONFIG.map.start_location.lon]
+    const position = [MM_CONFIG.map.start_location.lat, MM_CONFIG.map.start_location.lon]
 
     const style = {
       position: 'fixed',
@@ -98,7 +98,7 @@ export default class MapPane extends Component {
     return (
       <Map center={position} id='map' style={style} zoom={13}>
         <TileLayer
-          url={`https://api.mapbox.com/styles/v1/${ATF_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${ATF_CONFIG.map.mapbox.access_token}`}
+          url={`https://api.mapbox.com/styles/v1/${MM_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${MM_CONFIG.map.mapbox.access_token}`}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         {this.props.projects.highlighted ? this.getHighlightLayer(this.props.projects.highlighted) : null}
