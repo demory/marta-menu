@@ -38,7 +38,7 @@ export default class WelcomeModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => this.ok()} style={{ fontSize: '20px' }}>Let&#39;s Get Started! <i className='fa fa-chevron-right'></i></Button>
+          <Button bsStyle='warning' onClick={() => this.ok()} style={{ fontSize: '20px' }}>Let&#39;s Get Started! <i className='fa fa-chevron-right'></i></Button>
         </Modal.Footer>
       </Modal>
     )
