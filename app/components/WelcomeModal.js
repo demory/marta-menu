@@ -30,7 +30,7 @@ export default class WelcomeModal extends Component {
     return (
       <Modal show={this.state.showModal} onHide={this.close}>
         <Modal.Header>
-          <Modal.Title>Welcome to {MM_CONFIG.application.title}!</Modal.Title>
+          <Modal.Title style={{ fontSize: '24px' }}>Welcome to {MM_CONFIG.application.title}!</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -38,7 +38,7 @@ export default class WelcomeModal extends Component {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => this.ok()}>OK</Button>
+          <Button onClick={() => this.ok()} style={{ fontSize: '20px' }}>Let&#39;s Get Started! <i className='fa fa-chevron-right'></i></Button>
         </Modal.Footer>
       </Modal>
     )

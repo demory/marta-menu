@@ -5,7 +5,6 @@ export function getProjectCost (project) {
   const modeCosts = MM_CONFIG.budget[project.category]
   const dist = project.geojson ? getProjectLength(project.geojson.geometry.coordinates) : 0
 
-  console.log('cost for ' + project.id);
   // compute capital costs
   if(project.cost && project.cost.capital) {
     cap = project.cost.capital
@@ -35,7 +34,6 @@ export function getProjectCost (project) {
   let cost = cap + ops
   if(project.percentage !== undefined) cost = cost * project.percentage/100
 
-  console.log(cost);
   return cost
 }
 

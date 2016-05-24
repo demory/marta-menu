@@ -68,7 +68,7 @@ export default class ActionModal extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          <h4>Once you've crafted your own vision for MARTA expansion in Atlanta, it's time to make your voice heard.</h4>
+          <h4>Once you&#39;ve crafted your own vision for MARTA expansion in Atlanta, it&#39;s time to make your voice heard.</h4>
 
           <div style={subHeadingStyle}><i className='fa fa-check-square-o'></i>&nbsp;&nbsp;Share Your Personal Project List</div>
           <p>Use the following links to share your list via Facebook, Twitter, or as shareable URL.</p>
