@@ -9,6 +9,10 @@ export default class NavigationBar extends Component {
     super(props)
   }
 
+  componentDidMount () {
+    this.refs.welcomeModal.open()    
+  }
+
   render () {
 
     return (
@@ -21,7 +25,6 @@ export default class NavigationBar extends Component {
           console.log('selected',key);
           switch(key) {
             case 'about.welcome':
-              console.log('show welcome');
               this.refs.welcomeModal.open()
               break;
             case 'about.source':
