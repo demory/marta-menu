@@ -7,7 +7,7 @@ import App from './containers/App'
 
 import config from 'json!yaml!../config.yml'
 console.log('config', config)
-window.ATF_CONFIG = config
+window.MM_CONFIG = config
 
 import * as reducers from './reducers'
 

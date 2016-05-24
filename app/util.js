@@ -1,36 +1,42 @@
 import haversine from 'haversine'
 
 export function getProjectCost (project) {
-  let cap, ops
-  const modeCosts = ATF_CONFIG.budget[project.category]
-  if(project.cost && (project.cost.capital || project.cost.operating)) {
+  let cap = 0, ops = 0
+  const modeCosts = MM_CONFIG.budget[project.category]
+  const dist = project.geojson ? getProjectLength(project.geojson.geometry.coordinates) : 0
+
+  console.log('cost for ' + project.id);
+  // compute capital costs
+  if(project.cost && project.cost.capital) {
     cap = project.cost.capital
-    ops = project.cost.operating * ATF_CONFIG.budget.years
-
-    if(modeCosts && modeCosts.local_capital_share) {
-      cap = cap * modeCosts.local_capital_share
-    }
-
-    if(modeCosts && modeCosts.local_operating_share) {
-      ops = ops * modeCosts.local_operating_share
-    }
-
-    let cost = cap + ops
-    if(project.percentage !== undefined) cost = cost * project.percentage/100
-
-    return cost
   }
-  switch(project.category) {
-    case 'lrt':
-    case 'rail':
-    case 'rapid_bus':
-      const dist = getProjectLength(project.geojson.geometry.coordinates)
-      cap = dist * modeCosts.capital_cost_per_mile * modeCosts.local_capital_share
-      ops = dist * modeCosts.operating_cost_per_mile * ATF_CONFIG.budget.years * modeCosts.local_operating_share
-      return cap + ops
+  else { // no explicit cap cost provided; use formula
+    switch(project.category) {
+      case 'lrt':
+      case 'rail':
+      case 'rapid_bus':
+        cap = dist * modeCosts.capital_cost_per_mile * modeCosts.local_capital_share
+    }
   }
 
-  return 0
+  // compute operating costs
+  if(project.cost && project.cost.operating) {
+    ops = project.cost.operating * MM_CONFIG.budget.years/2
+  }
+  else { // no explicit O&M cost provided; use formula
+    switch(project.category) {
+      case 'lrt':
+      case 'rail':
+      case 'rapid_bus':
+        ops = dist * modeCosts.operating_cost_per_mile * MM_CONFIG.budget.years * modeCosts.local_operating_share
+    }
+  }
+
+  let cost = cap + ops
+  if(project.percentage !== undefined) cost = cost * project.percentage/100
+
+  console.log(cost);
+  return cost
 }
 
 export function formatCost (cost) {

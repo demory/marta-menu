@@ -70,7 +70,7 @@ export default class SliderProjectListing extends Component {
           {project.description}
         </div>
         <div>
-          <Rcslider min={0} max={25} step={5} dots={true} marks={marks} defaultValue={0}
+          <Rcslider min={0} max={25} step={5} dots={true} marks={marks} defaultValue={project.percentage}
             onChange={pct => {
               console.log(pct);
               this.props.projectPercentageChanged(pct)

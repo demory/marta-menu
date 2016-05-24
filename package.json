@@ -1,10 +1,10 @@
 {
-  "name": "atlantas-transit-future",
+  "name": "marta-menu",
   "version": "0.1.0",
-  "description": "Atlanta's Transit Future webapp",
+  "description": "MARTA Menu webapp",
   "repository": {
     "type": "git",
-    "url": "https://github.com/demory/atlantas-transit-future.git"
+    "url": "https://github.com/demory/marta-menu.git"
   },
   "author": "David Emory",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "react-dom": "^0.14.3",
     "react-leaflet": "^0.10.1",
     "react-redux": "^4.4.0",
+    "react-share": "^1.6.1",
     "redux": "^3.3.1"
   },
   "devDependencies": {

@@ -1,18 +1,39 @@
 import update from 'react-addons-update'
 
+// initialize the projects from the provided json file
 import allProjects from '../../projects.json'
 
+// check for initially selected projects in the URL params
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
+
+const selectedIds = getURLParameter('projects')
+let freqPct = 0
+if(selectedIds) {
+  selectedIds.split(',').forEach(id => {
+    const proj = allProjects.find(p => p.id === id)
+    if(id.startsWith('freq')) {
+      freqPct = parseInt(id.substr(4))
+    }
+    else if(proj) proj.selected = true
+  })
+}
+
+// add the special frequency project
 allProjects.push({
   id: 'freq',
   name: 'Freqency Enhancements',
   category: 'local_bus',
   description: "Across-the-board improvements to MARTA's local bus service in the City of Atlanta. Drag slider to the right to select an overall percentage increase in service.",
-  percentage: 0,
+  percentage: freqPct,
+  selected: freqPct > 0,
   cost: {
     capital: 0,
     operating: 90000000
   }
 })
+
 
 const projects = (state = {
   all: allProjects,

@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react'
-import { Panel } from 'react-bootstrap'
+import { Panel, Button } from 'react-bootstrap'
 
 import ProjectList from './ProjectList'
+import ActionModal from './ActionModal'
 
 export default class ProjectPane extends Component {
 
@@ -26,8 +27,8 @@ export default class ProjectPane extends Component {
 
     return (
       <div style={style}>
-        <h3>Projects</h3>
-        {ATF_CONFIG.categories.map(category => {
+        <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>Potential Projects</h3>
+        {MM_CONFIG.categories.map(category => {
           return (
             <ProjectList
               key={category.type}
@@ -43,6 +44,18 @@ export default class ProjectPane extends Component {
             />
           )
         })}
+
+        <ActionModal ref='actionModal' projects={this.props.projects} />
+        <p style={{ textAlign: 'center', marginTop: '36px' }}>
+          <Button
+            style={{ fontSize: '20px' }}
+            onClick={() => {
+              this.refs.actionModal.open()
+            }}
+          >
+            <i className='fa fa-bullhorn'></i>&nbsp;&nbsp;Share / Take Action!
+          </Button>
+        </p>
 
 
       </div>
