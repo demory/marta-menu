@@ -1,1 +1,1 @@
-Source code for the Atlanta's Transit Future website.
+Source code for the [MartaMenu](http://www.martamenu.com) web application
