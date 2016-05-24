@@ -39,7 +39,9 @@ export default class NavigationBar extends Component {
         </Nav>
 
         <div className='pull-right'>
-          <img src={MM_CONFIG.application.logo} style={{ height: '24px', marginTop: '8px' }}/>
+          <a href={MM_CONFIG.application.sponsor_url}>
+            <img src={MM_CONFIG.application.logo} style={{ height: '24px', marginTop: '8px' }}/>
+          </a>
         </div>
 
       </Navbar>
