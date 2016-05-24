@@ -5,6 +5,7 @@ import NavigationBar from '../components/NavigationBar'
 import ProjectPane from '../components/ProjectPane'
 import BudgetPane from '../components/BudgetPane'
 import MapPane from '../components/MapPane'
+import WelcomeModal from '../components/WelcomeModal'
 
 import { toggleProject, setProjectPercentage, setProjectHighlighted } from '../actions/projects'
 
@@ -20,6 +21,8 @@ class App extends React.Component {
   render () {
     return (
       <div>
+        <WelcomeModal ref='welcomeModal'/>
+
         <NavigationBar />
         <ProjectPane
           projects={this.props.projects}
