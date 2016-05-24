@@ -10,7 +10,7 @@ export default class NavigationBar extends Component {
   }
 
   componentDidMount () {
-    this.refs.welcomeModal.open()    
+    this.refs.welcomeModal.open()
   }
 
   render () {
@@ -19,7 +19,7 @@ export default class NavigationBar extends Component {
       <Navbar inverse className='container-fullwidth' fluid>
         <WelcomeModal ref='welcomeModal' />
         <Navbar.Brand style={{ fontWeight: 'bold', marginLeft: '0px', marginTop: '-1px', fontSize: '22px' }}>
-          {MM_CONFIG.application.title}
+          <i className='fa fa-list'></i>&nbsp;&nbsp;{MM_CONFIG.application.title}
         </Navbar.Brand>
         <Nav onSelect={(evt, key) => {
           console.log('selected',key);
