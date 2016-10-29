@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react'
 import { Panel } from 'react-bootstrap'
-import { Map, Marker, Popup, TileLayer, CircleMarker, Polyline } from 'react-leaflet';
+import { Map, Marker, Popup, TileLayer, CircleMarker, Polyline, GeoJson, FeatureGroup } from 'react-leaflet';
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import moment from 'moment'
 
 import ProjectListing from './ProjectListing'
+import routes from '../../routes.json'
 
 export default class MapPane extends Component {
 
@@ -95,6 +96,7 @@ export default class MapPane extends Component {
   render () {
     console.log(this.props.hour)
     console.log(APC_AM[0])
+    console.log(routes)
     // console.log(APC_DATA[0])
     // let dataSegments = {}
     // APC_DATA.map(d => {
@@ -128,6 +130,18 @@ export default class MapPane extends Component {
           latitudeExtractor={m => parseFloat(m.latitude) || -87}
           intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
         />
+        <FeatureGroup>
+        {routes.features.map(r => {
+          <GeoJson
+            data={r.geometry}
+            // onEachFeature={}
+          >
+            <Popup>
+              <div>{r.agency}</div>
+            </Popup>
+          </GeoJson>
+        })}
+        </FeatureGroup>
         {this.props.projects.highlighted ? this.getHighlightLayer(this.props.projects.highlighted) : null}
         {this.props.projects.all.map(project => this.getProjectLayer(project))}
       </Map>

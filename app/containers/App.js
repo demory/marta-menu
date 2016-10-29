@@ -7,7 +7,7 @@ import BudgetPane from '../components/BudgetPane'
 import MapPane from '../components/MapPane'
 import WelcomeModal from '../components/WelcomeModal'
 
-import { toggleProject, setProjectPercentage, setProjectHighlighted } from '../actions/projects'
+import { toggleProject, setProjectPercentage, setProjectHighlighted, voteForProject } from '../actions/projects'
 
 class App extends React.Component {
 
@@ -37,6 +37,7 @@ class App extends React.Component {
           hour={this.state.hour}
           am={this.state.am}
           ons={this.state.ons}
+          voteForProject={(project) => this.props.voteForProject(project)}
           projectToggled={(project) => this.props.projectToggled(project)}
           projectPercentageChanged={(project, pct) => this.props.projectPercentageChanged(project, pct)}
           projectHovered={(project) => this.props.projectHovered(project)}

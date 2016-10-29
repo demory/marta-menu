@@ -82,7 +82,11 @@ export default class ProjectListing extends Component {
           <div style={{ clear: 'both' }}></div>
         </div>
         <div style={descStyle} >
-          <Button bsStyle='xsmall' style={voteStyle}>Vote!</Button>
+          <Button
+            bsStyle='xsmall'
+            style={voteStyle}
+            onClick={() => this.props.voteForProject(project)}
+          ><Glyphicon glyph='check'/> Vote!</Button>
           {project.description}
         </div>
       </div>
