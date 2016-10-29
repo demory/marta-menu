@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import { Panel } from 'react-bootstrap'
 import { Map, Marker, Popup, TileLayer, CircleMarker, Polyline } from 'react-leaflet';
+import HeatmapLayer from 'react-leaflet-heatmap-layer'
+import moment from 'moment'
 
 import ProjectListing from './ProjectListing'
 
@@ -9,7 +11,14 @@ export default class MapPane extends Component {
   constructor (props) {
     super(props)
   }
-
+  componentDidMount () {
+    // this.timer = setInterval(() => {
+    //   this.setState({hour: (this.state.hour + 1) % 24})
+    // }, 5000)
+  }
+  componentWillUnmount () {
+    // clearInterval(this.timer)
+  }
   getProjectLayer (project) {
     if(!project.geojson) return null
     const popup = (
@@ -84,6 +93,18 @@ export default class MapPane extends Component {
   }
 
   render () {
+    console.log(this.props.hour)
+    console.log(APC_AM[0])
+    // console.log(APC_DATA[0])
+    // let dataSegments = {}
+    // APC_DATA.map(d => {
+    //   // const time = moment(d.timemin, 'h:mmA')
+    //   if (!dataSegments[d.timemin]) {
+    //     dataSegments[d.timemin] = []
+    //   }
+    //   dataSegments[d.timemin].push(d)
+    // })
+    // console.log(dataSegments)
     const position = [MM_CONFIG.map.start_location.lat, MM_CONFIG.map.start_location.lon]
 
     const style = {
@@ -100,6 +121,12 @@ export default class MapPane extends Component {
         <TileLayer
           url={`https://api.mapbox.com/styles/v1/${MM_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${MM_CONFIG.map.mapbox.access_token}`}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <HeatmapLayer
+          points={this.props.am ? APC_AM : APC_PM}
+          longitudeExtractor={m => parseFloat(m.longitude) || 33}
+          latitudeExtractor={m => parseFloat(m.latitude) || -87}
+          intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
         />
         {this.props.projects.highlighted ? this.getHighlightLayer(this.props.projects.highlighted) : null}
         {this.props.projects.all.map(project => this.getProjectLayer(project))}

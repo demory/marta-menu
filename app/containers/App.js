@@ -13,6 +13,11 @@ class App extends React.Component {
 
   constructor (props) {
     super(props)
+    this.state = {
+      hour: '7:00am',
+      am: true,
+      ons: true
+    }
   }
 
   componentDidMount () {
@@ -26,6 +31,12 @@ class App extends React.Component {
         <NavigationBar />
         <ProjectPane
           projects={this.props.projects}
+          sliderChanged={(value) => this.setState({hour: value})}
+          peakChanged={(value) => this.setState({am: !this.state.am})}
+          countTypeChanged={(value) => this.setState({ons: !this.state.ons})}
+          hour={this.state.hour}
+          am={this.state.am}
+          ons={this.state.ons}
           projectToggled={(project) => this.props.projectToggled(project)}
           projectPercentageChanged={(project, pct) => this.props.projectPercentageChanged(project, pct)}
           projectHovered={(project) => this.props.projectHovered(project)}
@@ -34,6 +45,9 @@ class App extends React.Component {
         <BudgetPane projects={this.props.projects} />
         <MapPane
           projects={this.props.projects}
+          hour={this.state.hour}
+          am={this.state.am}
+          ons={this.state.ons}
           projectToggled={(project) => this.props.projectToggled(project)}
         />
       </div>

@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react'
-import { Panel, Button } from 'react-bootstrap'
+import { Panel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap'
+require('rc-slider/assets/index.css')
+import Rcslider from 'rc-slider'
+import moment from 'moment'
 
 import ProjectList from './ProjectList'
 import ActionModal from './ActionModal'
@@ -15,7 +18,12 @@ export default class ProjectPane extends Component {
   }
 
   render () {
-
+    const times = []
+    // APC_DATA.map(d => {
+    //   times.push(moment(d.timemin, 'h:mma'))
+    // })
+    // let min = Math.min( ...times )
+    // let max = Math.max( ...times )
     const style = {
       position: 'fixed',
       width: '400px',
@@ -27,6 +35,29 @@ export default class ProjectPane extends Component {
 
     return (
       <div style={style}>
+        <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>View boardings/alightings</h3>
+        <ButtonToolbar>
+          <ButtonGroup>
+            <Button
+              active={this.props.am}
+              onClick={() => this.props.peakChanged()}
+            >AM Peak</Button>
+            <Button
+              active={!this.props.am}
+              onClick={() => this.props.peakChanged()}
+            >PM Peak</Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button
+              active={this.props.ons}
+              onClick={() => this.props.countTypeChanged()}
+            >Ons</Button>
+            <Button
+              active={!this.props.ons}
+              onClick={() => this.props.countTypeChanged()}
+            >Offs</Button>
+          </ButtonGroup>
+        </ButtonToolbar>
         <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>Potential Projects</h3>
         {MM_CONFIG.categories.map(category => {
           return (

@@ -6,8 +6,13 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import App from './containers/App'
 
 import config from 'json!yaml!../config.yml'
+import am from 'dsv!../am.csv'
+import pm from 'dsv!../pm.csv'
+
 console.log('config', config)
 window.MM_CONFIG = config
+window.APC_AM = am
+window.APC_PM = pm
 
 import * as reducers from './reducers'
 

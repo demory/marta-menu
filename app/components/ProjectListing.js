@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import { Panel, Glyphicon } from 'react-bootstrap'
+import { Panel, Glyphicon, Button } from 'react-bootstrap'
 
 import { getProjectCost, formatCost } from '../util'
 
@@ -54,8 +54,18 @@ export default class ProjectListing extends Component {
       fontWeight: 'bold',
       marginLeft: '4px'
     }
+    const voteStyle = {
+      float:'right',
+      background: this.props.inverse ? '#ddd' : '#444',
+      padding: '1px 5px',
+      fontSize: '15px',
+      fontWeight: 'bold',
+      marginLeft: '4px'
+    }
 
     const project = this.props.project
+    const MAX = 500
+    const MIN = 5
     return (
       <div style={mainStyle}>
         <div style={headerStyle}>
@@ -64,7 +74,7 @@ export default class ProjectListing extends Component {
             checkedChildren={<Glyphicon glyph='ok' />}
             unCheckedChildren={<Glyphicon glyph='remove' />}
             style={switchStyle}
-          />
+          /> {Math.floor(Math.random() * MAX) + MIN}
           <div style={costStyle}>{formatCost(getProjectCost(project))}</div>
           <div style={titleStyle} >
             {project.name}
@@ -72,6 +82,7 @@ export default class ProjectListing extends Component {
           <div style={{ clear: 'both' }}></div>
         </div>
         <div style={descStyle} >
+          <Button bsStyle='xsmall' style={voteStyle}>Vote!</Button>
           {project.description}
         </div>
       </div>
