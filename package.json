@@ -14,6 +14,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "dsv-loader": "^1.1.0",
+    "file-loader": "^0.9.0",
     "haversine": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
     "leaflet": "^0.7.7",
@@ -25,12 +26,14 @@
     "react-bootstrap": "^0.28.1",
     "react-bootstrap-switch": "^3.4.5",
     "react-dom": "^0.14.3",
+    "react-fa": "^4.1.2",
     "react-leaflet": "^0.10.1",
     "react-leaflet-heatmap-layer": "^0.2.3",
     "react-redux": "^4.4.0",
     "react-share": "^1.6.1",
     "redux": "^3.3.1",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
