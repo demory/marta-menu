@@ -19,7 +19,8 @@ if(selectedIds) {
     else if(proj) proj.selected = true
   })
 }
-
+const MAX = 500
+const MIN = 5
 // add the special frequency project
 allProjects.push({
   id: 'freq',
@@ -34,6 +35,9 @@ allProjects.push({
   }
 })
 
+for (var i = 0; i < allProjects.length; i++) {
+  allProjects[i].votes = Math.floor(Math.random() * MAX) + MIN
+}
 
 const projects = (state = {
   all: allProjects,

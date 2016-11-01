@@ -16,7 +16,9 @@ class App extends React.Component {
     this.state = {
       hour: '7:00am',
       am: true,
-      ons: true
+      ons: true,
+      hideRoutes: true,
+      hideHeatmap: false
     }
   }
 
@@ -32,6 +34,10 @@ class App extends React.Component {
         <ProjectPane
           projects={this.props.projects}
           sliderChanged={(value) => this.setState({hour: value})}
+          toggleRoutes={(value) => this.setState({hideRoutes: !this.state.hideRoutes})}
+          toggleHeatmap={(value) => this.setState({hideHeatmap: !this.state.hideHeatmap})}
+          hideRoutes={this.state.hideRoutes}
+          hideHeatmap={this.state.hideHeatmap}
           peakChanged={(value) => this.setState({am: !this.state.am})}
           countTypeChanged={(value) => this.setState({ons: !this.state.ons})}
           hour={this.state.hour}
@@ -47,6 +53,8 @@ class App extends React.Component {
         <MapPane
           projects={this.props.projects}
           hour={this.state.hour}
+          hideRoutes={this.state.hideRoutes}
+          hideHeatmap={this.state.hideHeatmap}
           am={this.state.am}
           ons={this.state.ons}
           projectToggled={(project) => this.props.projectToggled(project)}
@@ -65,6 +73,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     projectToggled: (project) => { dispatch(toggleProject(project.id)) },
+    voteForProject: (project) => { dispatch(voteForProject(project.id)) },
     projectPercentageChanged: (project, pct) => { dispatch(setProjectPercentage(project.id, pct))},
     projectHovered: (project) => dispatch(setProjectHighlighted(project.id, true)),
     projectUnhovered: (project) => dispatch(setProjectHighlighted(project.id, false))

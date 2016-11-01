@@ -123,23 +123,29 @@ export default class MapPane extends Component {
         <TileLayer
           url={`https://api.mapbox.com/styles/v1/${MM_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${MM_CONFIG.map.mapbox.access_token}`}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
+        />{!this.props.hideHeatmap &&
         <HeatmapLayer
           points={this.props.am ? APC_AM : APC_PM}
           longitudeExtractor={m => parseFloat(m.longitude) || 33}
           latitudeExtractor={m => parseFloat(m.latitude) || -87}
           intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
-        />
+        />}
         <FeatureGroup>
-        {routes.features.map(r => {
-          <GeoJson
-            data={r.geometry}
-            // onEachFeature={}
-          >
-            <Popup>
-              <div>{r.agency}</div>
-            </Popup>
-          </GeoJson>
+        {!this.props.hideRoutes && routes.features.map(r => {
+          return (
+            <GeoJson
+              data={r.geometry}
+              weight={2}
+              color={'#777'}
+              // onEachFeature={}
+            >
+              <Popup>
+                <div>
+                  <p style={{color: '#777'}}><strong>{r.properties.shortName}</strong> {r.properties.agency === 'Metropolitan Atlanta Rapid Transit Authority' ? 'MARTA' : r.properties.agency}</p>
+                </div>
+              </Popup>
+            </GeoJson>
+          )
         })}
         </FeatureGroup>
         {this.props.projects.highlighted ? this.getHighlightLayer(this.props.projects.highlighted) : null}
