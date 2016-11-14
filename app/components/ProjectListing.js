@@ -91,6 +91,7 @@ export default class ProjectListing extends Component {
           <div style={{ clear: 'both' }}></div>
         </div>
         <div style={descStyle} >
+          {/*
           <Button
             bsSize='xsmall'
             style={voteStyle}
@@ -99,6 +100,7 @@ export default class ProjectListing extends Component {
               // this.props.voteForProject(project)
             }}
           ><Icon name={this.state.voted ? 'check-square-o' : 'square-o'}/> Vote! {this.state.voted ? project.votes + 1 : project.votes}</Button>
+        */}
           {project.description}
         </div>
       </div>
