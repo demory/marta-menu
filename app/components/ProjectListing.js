@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
-import { Panel, Glyphicon } from 'react-bootstrap'
+import { Panel, Glyphicon, Button } from 'react-bootstrap'
+import Icon from 'react-fa'
 
 import { getProjectCost, formatCost } from '../util'
 
@@ -11,6 +12,7 @@ export default class ProjectListing extends Component {
 
   constructor (props) {
     super(props)
+    this.state ={}
   }
 
   render () {
@@ -54,8 +56,23 @@ export default class ProjectListing extends Component {
       fontWeight: 'bold',
       marginLeft: '4px'
     }
+    const voteStyle = {
+      float:'right',
+      background: this.state.voted
+        ? '#66CD00'
+        : this.props.inverse
+        ? '#ddd'
+        : '#444',
+      padding: '1px 5px',
+      fontSize: '12px',
+      fontWeight: 'bold',
+      marginLeft: '4px'
+    }
 
     const project = this.props.project
+    const MAX = 500
+    const MIN = 5
+    const number = Math.floor(Math.random() * 40) + 1
     return (
       <div style={mainStyle}>
         <div style={headerStyle}>
@@ -64,7 +81,9 @@ export default class ProjectListing extends Component {
             checkedChildren={<Glyphicon glyph='ok' />}
             unCheckedChildren={<Glyphicon glyph='remove' />}
             style={switchStyle}
-          />
+          /> {
+                /*Math.floor(Math.random() * MAX) + MIN*/
+              }
           <div style={costStyle}>{formatCost(getProjectCost(project))}</div>
           <div style={titleStyle} >
             {project.name}
@@ -72,6 +91,16 @@ export default class ProjectListing extends Component {
           <div style={{ clear: 'both' }}></div>
         </div>
         <div style={descStyle} >
+          {/*
+          <Button
+            bsSize='xsmall'
+            style={voteStyle}
+            onClick={() => {
+              this.setState({voted: true})
+              // this.props.voteForProject(project)
+            }}
+          ><Icon name={this.state.voted ? 'check-square-o' : 'square-o'}/> Vote! {this.state.voted ? project.votes + 1 : project.votes}</Button>
+        */}
           {project.description}
         </div>
       </div>

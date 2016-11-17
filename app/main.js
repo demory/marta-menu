@@ -2,19 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 import App from './containers/App'
 
 import config from 'json!yaml!../config.yml'
+import am from 'dsv!../am.csv'
+import pm from 'dsv!../pm.csv'
+
 console.log('config', config)
 window.MM_CONFIG = config
+window.APC_AM = am
+window.APC_PM = pm
 
 import * as reducers from './reducers'
 
 const store = createStore(
   combineReducers({
     ...reducers
-  })
+  }),
+  applyMiddleware(thunkMiddleware)
 )
 
 console.log('initial store', store.getState())
