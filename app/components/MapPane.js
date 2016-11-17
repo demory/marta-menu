@@ -3,6 +3,7 @@ import { Panel } from 'react-bootstrap'
 import { Map, Marker, Popup, TileLayer, CircleMarker, Polyline, GeoJson, FeatureGroup } from 'react-leaflet';
 import HeatmapLayer from 'react-leaflet-heatmap-layer'
 import moment from 'moment'
+import isRetina from 'is-retina'
 
 import ProjectListing from './ProjectListing'
 import routes from '../../routes.json'
@@ -120,16 +121,26 @@ export default class MapPane extends Component {
 
     return (
       <Map center={position} id='map' style={style} zoom={13}>
-        <TileLayer
-          url={`https://api.mapbox.com/styles/v1/${MM_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${MM_CONFIG.map.mapbox.access_token}`}
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />{!this.props.hideHeatmap &&
-        <HeatmapLayer
-          points={this.props.am ? APC_AM : APC_PM}
-          longitudeExtractor={m => parseFloat(m.longitude) || 33}
-          latitudeExtractor={m => parseFloat(m.latitude) || -87}
-          intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
-        />}
+        {MM_CONFIG.map && MM_CONFIG.map.mapbox
+          // Use MapBox tiles if provided in config
+          ? <TileLayer
+              url={`https://api.mapbox.com/styles/v1/${MM_CONFIG.map.mapbox.tileset}/tiles/{z}/{x}/{y}?access_token=${MM_CONFIG.map.mapbox.access_token}`}
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+          // Otherwise default to Carto Positron
+          : <TileLayer
+              url={`http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}${isRetina() ? '@2x' : ''}.png`}
+              attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            />
+        }
+        {!this.props.hideHeatmap &&
+          <HeatmapLayer
+            points={this.props.am ? APC_AM : APC_PM}
+            longitudeExtractor={m => parseFloat(m.longitude) || 33}
+            latitudeExtractor={m => parseFloat(m.latitude) || -87}
+            intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
+          />
+        }
         <FeatureGroup>
         {!this.props.hideRoutes && routes.features.map(r => {
           return (
