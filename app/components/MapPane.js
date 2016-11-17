@@ -63,7 +63,19 @@ export default class MapPane extends Component {
         )
     }
   }
-
+  getHeapMap () {
+    const points = this.props.hideHeatmap
+      ? []
+      : this.props.am ? APC_AM : APC_PM
+    return (
+      <HeatmapLayer
+        points={points}
+        longitudeExtractor={m => parseFloat(m.longitude) || 33}
+        latitudeExtractor={m => parseFloat(m.latitude) || -87}
+        intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
+      />
+    )
+  }
   getHighlightLayer (projectId) {
     const project = this.props.projects.all.find(p => p.id === projectId)
     const color = 'yellow'
@@ -133,14 +145,7 @@ export default class MapPane extends Component {
               attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>'
             />
         }
-        {!this.props.hideHeatmap &&
-          <HeatmapLayer
-            points={this.props.am ? APC_AM : APC_PM}
-            longitudeExtractor={m => parseFloat(m.longitude) || 33}
-            latitudeExtractor={m => parseFloat(m.latitude) || -87}
-            intensityExtractor={m => this.props.ons ? parseFloat(m.ons) / 20 : parseFloat(m.offs) / 20}
-          />
-        }
+        {this.getHeapMap()}
         <FeatureGroup>
         {!this.props.hideRoutes && routes.features.map(r => {
           return (
